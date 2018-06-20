@@ -111,9 +111,25 @@ resource "aws_security_group_rule" "allow_all_outbound" {
 	protocol	= "-1"
 	cidr_blocks	= ["0.0.0.0/0"]
 }
-/*
-resource "aws_key_pair" "deployer" {
-  key_name   = "deployer-key"
-  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQD3F6tyPEFEzV0LX3X8BsXdMsQz1x2cEikKDEY0aIj41qgxMCP/iteneqXSIFZBp5vizPvaoIR3Um9xK7PGoW8giupGn+EPuxIA4cDM4vzOqOkiMPhz5XK0whEjkVzTo4+S0puvDZuwIsdiW9mxhJc7tgBNL0cYlWSYVkz4G/fslNfRPW5mYAM49f4fhtxPb5ok4Q2Lg9dPKVHO/Bgeu5woMc7RY0p1ej6D4CKFE6lymSDJpW0YHX/wqE9+cfEauh7xZcG0q9t2ta6F6fmX0agvpFyZo8aFbXeUBr7osSCJNgvavWbM/06niWrOvYX2xwWdhXmXSrbX8ZbabVohBK41 email@example.com"
+
+resource "aws_autoscaling_schedule" "scale-out-during-buisness-hours" {
+	count = "${var.enable_autoscaling}"
+
+	scheduled_action_name = "scale-out-during-business-hours"
+	min_size = 2
+	max_size = 10
+	desired_capacity = 10
+	recurrence = "0 9 * * *"
+	autoscaling_group_name = "${aws_autoscaling_group.example.name}"
 }
-*/
+
+resource "aws_autoscaling_schedule" "scale-in-at-night" {
+	count = "${var.enable_autoscaling}"
+
+	scheduled_action_name = "scale-it-at-night"
+	min_size = 2
+	max_size = 10
+	desired_capacity = 2
+	recurrence = "0 17 * * *"
+	autoscaling_group_name = "${aws_autoscaling_group.example.name}"
+}

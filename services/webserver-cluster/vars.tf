@@ -27,3 +27,7 @@ variable "max_size" {
 	description = "The maximum number of instances in den EC2 Scaling Group"
 }
 
+variable "enable_autoscaling" {
+	description = "If set to true, enable auto scaling"
+}
+
