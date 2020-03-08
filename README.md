@@ -1,2 +1,2 @@
 # terraform_modules
-Repository für Terraform Modules 
+Beispiel aus dem Trainingsbuch zu Terraform. Hier die Konfiguration, wie Terraform Definitionen für wiederverwendbare Module abgelegt werden können.
